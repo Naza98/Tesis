@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+<div class="card shadow mb-4">
+  <!-- Card Header - Dropdown -->
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Detalle de producto</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+      <ul>
+
+        <li>Producto: <b> {{ object.nombre_producto }}</b></li>
+        <li>Codigo de barra: <b> {{ object.codigo_barra }}</b></li>
+        <li>Marca: <b> {{ object.marca.descripcion }}</b></li>
+        <li>Precio: <b> {{ object.precio }}</b></li>
+        <li>Stock: <b> {{ object.existencia }}</b></li>
+        <li>Descripción: <b> {{ object.descripcion }}</b></li>
+        <li>Foto:</li>
+        <div class="col-md-8">
+          {% if object.foto %}
+          <img src="{{object.foto.url}}" width="30%" alt="30%">
+          {% endif %}
+      </div>
+      </ul>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

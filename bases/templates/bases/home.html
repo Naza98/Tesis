@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+
+
+{% block page_content %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Usuario activo :</h5>
+			<hr>
+			<p><b> {{request.user.username}}</b></p>
+			{% if request.user.email %}
+			<p>Email: {{request.user.email}}</p>
+			{% endif %}
+			
+			<a class="btn btn-outline-info  btn-sm btn-block" href="#">Nueva Compra</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="#">Nueva Venta</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body text-center">
+			<h5>Total de Ventas</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px"> ${{ FacturaEnc.total }} </h1>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body text-center">
+			<h5>Total de compras</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px"> ${{ FacturaEnc.total }}</h1>
+		</div>
+	</div>
+</div>
+
+<div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+
+{% endblock  %}
+
+{% block js_page %} 
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [asdasdas],
+          backgroundColor: [
+            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+          ],
+          label: 'Population'
+        }],
+        labels: [asdasd],
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+{% endblock %}

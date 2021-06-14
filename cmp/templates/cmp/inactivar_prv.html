@@ -1,0 +1,75 @@
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+      <form method="POST" class="form-inline">
+          {% csrf_token %}
+          <div class="col">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase">
+                          <div class="alert">
+                              ¿ Inactivar <b>{{ obj.descripcion }} </b> ?
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-success" id="btnInactivar"><i class="far fa-question-circle"></i>Si, Inactivar</button>
+                      <button type="button" class="btn btn-danger" onclick="return cerrar_modal()">
+                          No, Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </form>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+
+  var token = $('input[name=csrfmiddlewaretoken]').val();
+  $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                xhr.setRequestHeader("X-CSRFToken", token);
+            }
+        }
+    });
+
+  $("#btnInactivar").click(function(e){ //Boton inactivar
+      e.preventDefault();               //desactivar envio del formulario
+      //alert("Probando");
+
+      var id = {{ obj.id }};                                      // inicializar la variable id
+      var template="{% url 'cmp:proveedor_inactivar' obj.id %}"; //ruta de la vista para inactivarla
+      //template += id;
+      var data = {"id":id};                                       //para que se envie el id del proveedor  
+      data = JSON.stringify(data);                                //formatear variable
+
+      $.ajax({                                      //ejecutar ajax
+        type: "POST",   
+        url: template,                               //url a provesar, en la varibale template   
+        data: data,                                   //data a provesar, en la varibale data
+        beforeSend: function(xhr,settings){
+          $.ajaxSettings.beforeSend(xhr,settings);
+        },
+        success: function(response){        
+          console.log(response);
+          cerrar_modal();
+          //alert(response);
+          var tipo=(response.startsWith('Proveedor no existe') ? 'red':'green' );
+          mensaje(response,tipo);
+        },
+        error: function(jqXHR, textStatus, errorThrow){
+          console.log(textStatus, errorThrow);
+          mensaje(errorThrow,'red');
+          cerrar_modal();
+        }
+      });
+  });
+
+});
+</script>
