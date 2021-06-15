@@ -36,7 +36,7 @@
                                         <select name="enc_cliente" id="enc_cliente" class="form-control">
                                             <option value="0">Seleccione Cliente</option>
                                             {% for item in clientes %}
-                                                <option value="{{item.id}}">{{ item.nombres }} {{item.apellidos}} </option>
+                                                <option value="{{item.id}}">{{ item.apellidos }} {{item.nombres}} </option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -108,24 +108,24 @@
                             <input type="hidden" class="form-control" name="existencia" id="existencia">
                         </div>
                         <div class="col-lg-4">
-                            <input type="number" class="form-control" name="precio" id="precio" placeholder="Precio" readonly>
+                            <input type="number" class="form-control" name="precio" id="precio" placeholder="Precio $" readonly>
                         </div>
                         <div class="col-lg-3">
-                            <input type="number" class="form-control" name="descuento_detalle" id="descuento_detalle" placeholder="Descuento">
+                            <input type="number" class="form-control" name="descuento_detalle" id="descuento_detalle" placeholder="Descuento $">
                         </div>
                         <div class="col-lg-1">
                             <button type="submit" class="btn btn-success" id="btnGuardar"> <i class="far fa-plus-square"></i> </button>
                         </div>
                     </div>
                     <div class="row p-1">
-                        <div class="col-lg-9 text-right">Sub Total</div>
+                        <div class="col-lg-9 text-right">Sub Total $</div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="sub_total_detalle" id="sub_total_detalle" placeholder="Sub Total"
                              value="0.00" disabled>
                         </div>
                     </div>
                     <div class="row p-1">
-                        <div class="col-lg-9 text-right">Total</div>
+                        <div class="col-lg-9 text-right">Total $</div>
                         <div class="col-lg-3">
                             <input type="number" class="form-control" name="total_detalle" id="total_detalle" placeholder="Total"
                              value="0.00" disabled>
@@ -170,9 +170,9 @@
                                 <td>{{ item.producto.codigo_barra }}</td>
                                 <td>{{ item.producto.nombre_producto }}</td>
                                 <td>{{ item.cantidad }}</td>
-                                <td>{{ item.sub_total }}</td>
-                                <td>{{ item.descuento }}</td>
-                                <td>{{ item.total }}</td>
+                                <td>${{ item.sub_total }}</td>
+                                <td>${{ item.descuento }}</td>
+                                <td>${{ item.total }}</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-circle"
                                     onclick="borrar_detalle({{ item.id }})">
@@ -324,7 +324,7 @@
         // $('#enc_cliente').select2().select2('val', $('#enc_cliente option:eq(1)').val());
         // https://select2.org/programmatic-control/add-select-clear-items
         $("#enc_cliente").data('select2').trigger('select', {
-            data: {"id": 5}
+            data: {"id": 1}
         });
 
     });

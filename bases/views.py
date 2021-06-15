@@ -38,21 +38,6 @@ class Home(LoginRequiredMixin, generic.TemplateView):
 
 
 
-def cantidad_productos(request):
-    labels = []
-    data = []
-
-    queryset = Producto.objects.order_by('-cantidad')[:5]
-    for producto in queryset:
-        labels.append(producto.nombre_producto)
-        data.append(producto.existencia)
-
-    return render(request, 'bases/home.html', {
-        'labels': labels,
-        'data': data,
-    }) 
-
-
 class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
     login_url = "bases:login"
     template_name="bases/sin_privilegios.html"

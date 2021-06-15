@@ -12,9 +12,9 @@
 			{% if request.user.email %}
 			<p>Email: {{request.user.email}}</p>
 			{% endif %}
-			
-			<a class="btn btn-outline-info  btn-sm btn-block" href="#">Nueva Compra</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="#">Nueva Venta</a>
+
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'cmp:compras_new' %}">Nueva Compra</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'fac:factura_new' %}">Nueva Venta</a>
 
 		</div>
 	</div>
@@ -36,36 +36,49 @@
 	</div>
 </div>
 
-<div id="container" style="width: 75%;">
-    <canvas id="pie-chart"></canvas>
-  </div>
+<div id="container" style="width: 50%; height: 50%;">
+	<canvas id="myChart" width="50" height="50"></canvas>
+</div>
 
 {% endblock  %}
 
-{% block js_page %} 
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script>
-    var config = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [asdasdas],
-          backgroundColor: [
-            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
-          ],
-          label: 'Population'
-        }],
-        labels: [asdasd],
-      },
-      options: {
-        responsive: true
-      }
-    };
-
-    window.onload = function() {
-      var ctx = document.getElementById('pie-chart').getContext('2d');
-      window.myPie = new Chart(ctx, config);
-    };
-
-  </script>
+{% block js_page %}
+<script>
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+	</script>
+	
 {% endblock %}

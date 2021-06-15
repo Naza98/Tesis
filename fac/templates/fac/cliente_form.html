@@ -1,3 +1,4 @@
+{% load static %}
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         {% if obj %}
@@ -21,67 +22,66 @@
                                         </div>
                                         <div class="dropdown-divider"></div>
                                         {% csrf_token %}
-
-                                            <div class="row">
-                                                {#{ form.as_p }#}
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.nombres.label}}</div>
-                                                    <div class="col-md-6">{{form.nombres}}</div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.apellidos.label}}</div>
-                                                    <div class="col-md-6">{{form.apellidos}}</div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6">{{form.tipo_documento.label}}</div>
-                                                    <div class="col-md-6">{{form.tipo_documento}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.numero_dni.label}}</div>
-                                                    <div class="col-md-6">{{form.numero_dni}}</div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.fecha_nacimiento.label}}</div>
-                                                    <div class="col-md-6">{{form.fecha_nacimiento}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.sexo.label}}</div>
-                                                    <div class="col-md-6">{{form.sexo}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.tipo.label}}</div>
-                                                    <div class="col-md-6">{{form.tipo}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.celular.label}}</div>
-                                                    <div class="col-md-6">{{form.celular}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.email.label}}</div>
-                                                    <div class="col-md-6">{{form.email}}</div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-6">{{form.estado.label}}</div>
-                                                    <div class="col-md-6">{{form.estado}}</div>
-                                                </div>
+                                        <div class="row">
+                                            {#{ form.as_p }#}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.nombres.label}}</div>
+                                                <div class="col-md-6">{{form.nombres}}</div>
                                             </div>
 
-                                            <div class="dropdown-divider"></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button type="submit" class="btn btn-success"><span
-                                                            class="fa fa-save"></span> Guardar</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        onclick="return cerrar_modal()"><span class="fa fa-undo"></span>
-                                                        Cancelar
-                                                    </button>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.apellidos.label}}</div>
+                                                <div class="col-md-6">{{form.apellidos}}</div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-6">{{form.tipo_documento.label}}</div>
+                                                <div class="col-md-6">{{form.tipo_documento}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.numero_dni.label}}</div>
+                                                <div class="col-md-6">{{form.numero_dni}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.fecha_nacimiento.label}}</div>
+                                                <div class="col-md-6">{{form.fecha_nacimiento}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.sexo.label}}</div>
+                                                <div class="col-md-6">{{form.sexo}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.tipo.label}}</div>
+                                                <div class="col-md-6">{{form.tipo}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.celular.label}}</div>
+                                                <div class="col-md-6">{{form.celular}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.email.label}}</div>
+                                                <div class="col-md-6">{{form.email}}</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{form.estado.label}}</div>
+                                                <div class="col-md-6">{{form.estado}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown-divider"></div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-success"><span
+                                                        class="fa fa-save"></span> Guardar</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="return cerrar_modal()"><span class="fa fa-undo"></span>
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="far fa-calendar-plus fa-2x text-gray-300"></i>
@@ -115,3 +115,26 @@
     });
 </script>
 {% endif %}
+
+{% block js_page %}
+<script src="{% static 'SweetAlert2/sweetalert2.js' %}"></script>
+<script>
+    {% if form.errors %}
+
+        var errors = '';
+
+        {% for field in form %} 
+            {% for error in field.errors %}
+                errors += '{{ error }}\n'; 
+            {% endfor %} 
+        {% endfor %}
+
+        Swal.fire({
+            title: 'Error!',
+            text: errors,
+            icon: 'error'
+        }) 
+    {% endif %}
+</script>
+
+{% endblock %}

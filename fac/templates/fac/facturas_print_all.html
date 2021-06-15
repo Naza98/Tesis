@@ -75,7 +75,7 @@
                         <td>{{ item.id }}</td>
                         <td>{{ item.fecha | date:"d/m/Y"  }}</td>
                         <td>{{ item.cliente }}</td>
-                        <td>{{ item.total }}</td>
+                        <td>${{ item.total }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

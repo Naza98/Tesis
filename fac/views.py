@@ -85,15 +85,23 @@ class ClienteEdit(VistaBaseEdit):
 @permission_required("fac.change_cliente",login_url="/login/")
 def clienteInactivar(request,id):
     cliente = Cliente.objects.filter(pk=id).first()
+    contexto = {}
+    template_name ="fac/cliente_del.html"
+
+    if not cliente:
+        return redirect("inv:cliente_list")
+    
+    if request.method=='GET':
+        contexto={'obj':cliente}
 
     if request.method=="POST":
         if cliente:
-            cliente.estado = not cliente.estado
+            cliente.estado=False
             cliente.save()
-            return HttpResponse("OK")
-        return HttpResponse("FAIL")
-    
-    return HttpResponse("FAIL")
+            messages.error(request, 'Cliente Inactivado')
+            return redirect("fac:cliente_list")
+    return render(request,template_name,contexto)     
+   
 
 class FacturaView(SinPrivilegios, generic.ListView):
     model = FacturaEnc
@@ -248,3 +256,62 @@ def borrar_detalle_factura(request, id):
         return HttpResponse("Usuario no autorizado")
     
     return render(request,template_name,context)
+
+
+
+#-----------------------Informes estadisticos-------------------------------#
+
+class VentaReportLineListView(generic.ListView):
+
+    queryset = FacturaEnc.objects.filter(fecha__year=datetime.now().year).order_by('-fecha')
+    template_name = 'informes_estadisticos/venta_report_line.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VentaReportLineListView, self).get_context_data(**kwargs)
+        ventas = FacturaEnc.objects.filter(fecha__year=datetime.now().year)
+        ventas_enviar = []
+        for venta in ventas:
+            if venta.total:
+                a = {
+                    'cantidad_ventas': venta.total,
+                    'fecha': str(venta.fecha).split('-')[2] + '/' + str(venta.fecha).split('-')[1] + '/' + str(venta.fecha).split('-')[0] #FECHA
+                }
+                ventas_enviar.append(a)
+        context['ventas'] = ventas_enviar
+        return context
+
+    def get_queryset(self):
+        if 'texto_buscar' in self.request.GET:
+            fecha_desde = self.request.GET.get('texto_buscar').split(' - ')[0]
+            fecha_hasta = self.request.GET.get('texto_buscar').split(' - ')[1]
+            ventas_enviar = []
+
+            ventas = FacturaEnc.objects.filter(
+                fecha__gte=
+                fecha_desde.split('/')[2] + '-' + fecha_desde.split('/')[1] +
+                '-' + fecha_desde.split('/')[0],
+                fecha__lte=
+                fecha_hasta.split('/')[2] + '-' + fecha_hasta.split('/')[1] +
+                '-' + fecha_hasta.split('/')[0]).order_by('fecha')
+            for venta in ventas:
+                if venta.total:
+                    a = {
+                        'catidad_ventas': venta.total,
+                        'fecha': str(venta.fecha).split('-')[2] + '/' + str(venta.fecha).split('-')[1] + '/' + str(venta.fecha).split('-')[0]
+                    }
+                    ventas_enviar.append(a)
+            queryset = ventas_enviar
+
+        else:
+            ventas = FacturaEnc.objects.filter(fecha__year=datetime.datetime.now().year, sucursal__id=
+                                    self.request.session.get('id_sucursal')).order_by('fecha')
+            ventas_enviar = []
+            for venta in ventas:
+                if venta.total:
+                    a = {
+                        'ventas': venta.total,
+                        'fecha': str(venta.fecha).split('-')[2] + '/' + str(venta.fecha).split('-')[1] + '/' + str(venta.fecha).split('-')[0]
+                    }
+                    ventas_enviar.append(a)
+            queryset = ventas_enviar
+        return queryset
